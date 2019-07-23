@@ -28,6 +28,9 @@ functions:
       workflow_name: "coherent-line-flow"
       gateway: "gateway:8080"
       resizer-function: "resizeimagemagick"
+    labels:
+      faas-flow : 1
+      faas-flow-desc: "resize and apply filter on images"
 
   resizeimagemagick:
     lang: Dockerfile
