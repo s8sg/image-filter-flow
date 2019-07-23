@@ -1,0 +1,35 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+
+functions:
+  coherent-line-drawing:
+    lang: go-opencv
+    handler: ./colidr-openfaas
+    image: esimov/colidr-openfaas:0.1
+    environment:
+      input_mode: "image"
+      output_mode: "image"
+      content_type: "image/jpeg"
+      write_timeout: 100s
+      read_timeout: 120s
+    labels:
+      com.openfaas.scale.zero: "false"
+
+  image-filter-flow:
+    lang: faas-flow
+    handler: ./image-filter-flow
+    image: s8sg/image-filter-flow:0.1.0
+    environment:
+      write_debug: true
+      combine_output: false
+      read_timeout: 120s
+      write_timeout: 120s
+      workflow_name: "coherent-line-flow"
+      gateway: "gateway:8080"
+      resizer-function: "resizeimagemagick"
+
+  resizeimagemagick:
+    lang: Dockerfile
+    handler: ./ResizeImageMagick
+    image: functions/resizer:latest
