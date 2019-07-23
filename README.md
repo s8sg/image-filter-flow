@@ -17,7 +17,7 @@ Need input to be in image mode
 ## Getting started 
 Clone
 ```
-git clone https://github.com/s8sg/coherent-line-flow.git
+https://github.com/s8sg/image-filter-flow.git
 ```
 Build 
 ```
